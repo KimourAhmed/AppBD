@@ -1,11 +1,18 @@
-drop table Client ;
-drop table FichierImage ;
-drop table EstProprioDe ; 
-drop table Adresse ;
-drop table Impression ;
-drop table Livraison;
-drop table Commande;
+drop table IF EXISTS Client ;
+drop table IF EXISTS FichierImage ;
+drop table IF EXISTS EstProprioDe ; 
+drop table IF EXISTS Adresse ;
+drop table IF EXISTS Impression ;
+drop table IF EXISTS Livraison;
+drop table IF EXISTS Commande;
 
+create table Adresse (
+    idAdr number(4) primary key,
+    NumRue number(3),
+    NomRue varchar(100),
+    Ville varchar(100),
+    CodePostal number(5)
+) 
 
 create table Client (
     adrMail varchar(100) primary key,
@@ -20,7 +27,7 @@ create table FichierImage (
     InfoPriseDeVue varchar(100),
     ResolutionImage number(3),
     EstPartage NUMBER(1),
-    Foreign key adrMail varchar(100) REFERENCES Clients
+    Foreign key adrMail varchar(100) REFERENCES Clients (adrMail)
     
 )
 
@@ -37,8 +44,7 @@ create table Impression(
 )
 
 create table Livraison (
-    adrPointRelais varchar(100) REFERENCES Adresse ,
-    adrDomicile varchar(100) REFERENCES Adresse 
+   
 )
 
 create table Commande (
@@ -51,3 +57,6 @@ create table Commande (
 create table tirage(
 
 ) INHERITS (Impression)
+
+
+				
