@@ -57,8 +57,8 @@ create table LesPhotos (
 create table LesCommandes(
     idCommande int,
     dateCommande varchar(100),
-    prix number(1),
-    statut statut,
+    prix float,
+    statut LesStatuts,
     primary key(idCommande),
     foreign key idAdr int REFERENCES LesAdresses(idAdr),
     foreign key idClient int REFERENCES LesClients(idClient),
@@ -67,13 +67,13 @@ create table LesCommandes(
 
 create table LesPromotions(
     codeProm int primary key,
-    taux int,
+    taux float,
     utilise number(1)
 )
 
 create table LesArticles(
     idArticle int primary key,
-    prixImpression int,
+    prixImpression float,
     quantite int,
     foreign key idCommande int REFERENCES LesCommandes(idCommande),
     foreign key idImpr int REFERENCES LesImpressions(idImpr)
@@ -121,12 +121,10 @@ create table LesTirages(
 )
 
 create table LesStocks(
-    supportImpression varchar(100) primary key,
+    supportImpression LesSupportImpressions,
     quantite int primary key
 )
 
-create table LesSupportImpressions(
-    valeur int primary key
-)
+CREATE TYPE LesSupportImpressions AS ENUM ("papier", "cadre", "calendrier", "album");
 
-CREATE TYPE statut AS ENUM ("En cours","Prêt à l'envoie", "Envoyée");
+CREATE TYPE LesStatuts AS ENUM ("En cours", "Prêt à l'envoie", "Envoyée");
