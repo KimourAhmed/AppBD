@@ -1,0 +1,27 @@
+package ressources;
+
+public class Impression {
+	private int idImpr;
+	private String reference;
+	
+	public Impression(int idImpr, String reference) {
+		super();
+		this.idImpr = idImpr;
+		this.reference = reference;
+	}
+	
+	public int getIdImpr() {
+		return idImpr;
+	}
+	public void setIdImpr(int idImpr) {
+		this.idImpr = idImpr;
+	}
+	public String getReference() {
+		return reference;
+	}
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+	
+	
+}
