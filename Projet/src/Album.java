@@ -1,51 +1,49 @@
-package ressources;
 
 public class Album {
-	private int idAlbum;
-	private int idPhoto;
-	private String reference ;
-	private String titre;
+	int idAlbum;
+	String reference;
+	String titre;
+	int idPhoto;
 	
-	public Album(int idAlbum, int idPhoto, String reference, String titre) {
-		super();
+	public Album(int idAlbum, String reference, String titre, int idPhoto) {
 		this.idAlbum = idAlbum;
-		this.idPhoto = idPhoto;
 		this.reference = reference;
 		this.titre = titre;
+		this.idPhoto = idPhoto;
 	}
-
+	
 	public int getIdAlbum() {
 		return idAlbum;
 	}
-
+	
 	public void setIdAlbum(int idAlbum) {
 		this.idAlbum = idAlbum;
 	}
-
+	
+	public String getReference() {
+		return reference;
+	}
+	
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+	
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+	
+		this.titre = titre;
+	}
+	
 	public int getIdPhoto() {
 		return idPhoto;
 	}
-
+	
 	public void setIdPhoto(int idPhoto) {
 		this.idPhoto = idPhoto;
 	}
 
-	public String getReference() {
-		return reference;
-	}
-
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
-
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-	
 	
 	
 }
