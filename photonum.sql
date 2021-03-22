@@ -20,7 +20,11 @@ create table LesClients (
  
 create table LesPhotos (
     idPhoto int primary key,
-    parametresRetouche varchar(50)
+    parametresRetouche varchar(50),
+	idPage int,
+	idTir int,
+	constraint FK_PhotoPage foreign key (idPage) REFERENCES LesPages(idPage),
+    constraint FK_PhotoTir  foreign key (idTir) REFERENCES LesTirages(idTir)
 );
  
 create table LesFichierImages (
@@ -78,9 +82,9 @@ create table LesPages (
     idPage int,
     textDescriptif varchar(50),
     miseEnForme varchar(50),
-    idPhoto int,
+    idImpr int,
     primary key(idPage),
-    constraint FK_PagePhoto foreign key (idPhoto) REFERENCES LesPhotos(idPhoto)
+    constraint FK_PageImpr foreign key (idImpr) REFERENCES LesImpressions(idImpr)
 );
  
 create table LesAlbums (
@@ -88,34 +92,26 @@ create table LesAlbums (
     reference varchar(20),
     titre varchar(50),
     idPhoto int,
-    idPage int,
     primary key(idAlbum),
-    constraint FK_AlbumPhoto foreign key (idPhoto) REFERENCES LesPhotos(idPhoto),
-    constraint FK_AlbumPage foreign key (idPage) REFERENCES LesPages(idPage)
+    constraint FK_AlbumPhoto foreign key (idPhoto) REFERENCES LesPhotos(idPhoto)
 );
  
 create table LesCadres(
     idCadre int,
     reference varchar(20),
-    idPage int,
-    primary key (idCadre),
-    constraint FK_CadrePage foreign key (idPage) REFERENCES LesPages(idPage)
+    primary key (idCadre)
 );
  
 create table LesCalendriers(
     idCal int,
     reference varchar(20),
-    idPage int,
-    primary key (idCal),
-    constraint FL_CalPage foreign key (idPage) REFERENCES LesPages(idPage)
+    primary key (idCal)
 );
  
 create table LesTirages(
     idTir int,
     reference varchar(20),
-    idPage int,
-    primary key(idTir),
-    constraint FK_TiragePage foreign key (idPage) REFERENCES LesPages(idPage)
+    primary key(idTir)
 );
  
  
