@@ -1,13 +1,16 @@
-package tables;;
+package tables;
 
 public class Calendrier {
 	private int idCal;
-	  private String reference;
+	private String reference;
 	  
-	  public Calendrier(int idCal, String reference) {
+	 public Calendrier(int idCal, String reference) {
 			super();
 			this.idCal = idCal;
 			this.reference = reference;
+		}
+	 
+	public Calendrier() {
 		}
 
 	public int getIdCal() {
