@@ -1,11 +1,8 @@
-package ressources;
-
 public class Impression {
 	private int idImpr;
 	private String reference;
 	
 	public Impression(int idImpr, String reference) {
-		super();
 		this.idImpr = idImpr;
 		this.reference = reference;
 	}
