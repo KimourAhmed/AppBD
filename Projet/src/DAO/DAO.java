@@ -15,14 +15,14 @@ public abstract class DAO<T> {
      * @param id
      * @return
      */
-    public abstract T find(long id);
+    public abstract T read(int id);
     
     /**
      * Permet de créer une entrée dans la base de données
      * par rapport à un objet
      * @param obj
      */
-    public abstract T create(T obj);
+    public abstract boolean create(T obj);
     
     /**
      * Permet de mettre à jour les données d'une entrée dans la base 

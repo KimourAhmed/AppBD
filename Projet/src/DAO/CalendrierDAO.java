@@ -16,13 +16,10 @@ public class CalendrierDAO extends DAO<Calendrier>{
 		Calendrier Calendrier = new Calendrier();      
 		try {
 			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM Calendrier WHERE idAdr = " + id);
+			executeQuery("SELECT * FROM Calendrier WHERE idCal = " + id);
 		if(result.first())
-			Calendrier = new Calendrier(id,result.getInt("numRue"),
-								result.getString("nomRue"),
-								result.getString("ville"),
-								result.getInt("codePostal")
-								);         
+			Calendrier = new Calendrier(id,
+								result.getString("refernce"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
@@ -34,14 +31,11 @@ public class CalendrierDAO extends DAO<Calendrier>{
 		try {
             
 			this.connect.createStatement().executeQuery(
-                    "UPDATE Calendrier SET numRue = '" + obj.getNumRue() + 
-                    					"', nomRue = '"+ obj.getNomRue()+
-                    					"', ville = '" +obj.getVille()+
-                    					"', codePostal = '"+obj.getCodePostal()+ "'"+
-                    " WHERE idAdr = " + obj.getIdAdr()
+                    "UPDATE Calendrier SET reference= '" + obj.getReference() +"'"+
+                    " WHERE idAdr = " + obj.getIdCal()
                  );
         
-        obj = this.read(obj.getIdAdr());
+        obj = this.read(obj.getIdCal());
 		} catch (SQLException e) {
             e.printStackTrace();
     	}
@@ -54,7 +48,7 @@ public class CalendrierDAO extends DAO<Calendrier>{
 		// TODO Auto-generated method stub
 		try {
 			this.connect.createStatement().executeUpdate(
-	                     "DELETE FROM Calendrier WHERE idAdr = " + obj.getIdAdr()
+	                     "DELETE FROM Calendrier WHERE idAdr = " + obj.getIdCal()
 	                );
 	    
 		} catch (SQLException e) {

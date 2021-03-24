@@ -9,6 +9,10 @@ public class Tirage {
 		this.idTir = idTir;
 		this.reference = reference;
 	}
+	
+	public Tirage() {
+		
+	}
 
 	public int getIdTir() {
 		return idTir;

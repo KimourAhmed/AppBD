@@ -68,5 +68,9 @@ public class Client {
 		this.idAdr = idAdr;
 	}
 	
+	public String toString() {
+		return "Client [adresseMail=" + adrMail + ", nom=" + name + ", prenom=" + prenom + ", mot de passe=" + mdp+ "]";
+	}
+	
 	
 }

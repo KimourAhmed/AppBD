@@ -15,6 +15,11 @@ public class Article {
 		this.idCommande = idCommande;
 		this.idImpr = idImpr;
 	}
+	
+
+	public Article() {
+		
+	}
 
 	public int getIdArticle() {
 		return idArticle;

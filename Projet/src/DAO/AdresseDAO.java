@@ -9,8 +9,23 @@ public class AdresseDAO extends DAO<Adresse>{
 		super(conn); 
 		}
 	
-	public Adresse create(Adresse obj){
-		return obj;
+	@Override
+	public boolean create(Adresse obj){ 
+		try {
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesAdresses VALUES (?, ?, ?, ?, ?)");
+			ps.setInt(1, obj.getIdAdr());
+			ps.setInt(2, obj.getNumRue());
+			ps.setString(3, obj.getNomRue());
+			ps.setString(4, obj.getVille());
+			ps.setInt(5, obj.getCodePostal());
+			int i = ps.executeUpdate();
+			if(i == 1) {
+			    return true;
+			}
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+    return false;
 	}
 	
 	public Adresse read(int id){

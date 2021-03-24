@@ -7,9 +7,33 @@ public class ArticleDAO extends DAO<Article>{
 		public ArticleDAO(Connection conn) {
 				super(conn);
 		}
-		public Article create(Article obj){
-				return obj;
-		}	
+		
+		
+		
+		@Override
+		public boolean create(Article obj){ 
+			try {
+				PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesArticles VALUES (?, ?, ?, ?, ?)");
+				ps.setInt(1, obj.getIdArticle());
+				ps.setDouble(2, obj.getPrixImpression());
+				ps.setInt(3, obj.getQuantite());
+				ps.setInt(4, obj.getIdCommande());
+				ps.setInt(5, obj.getIdImpr());				
+		
+				int i = ps.executeUpdate();
+				if(i == 1) {
+				    return true;
+				}
+			} catch (SQLException ex) {
+		        ex.printStackTrace();
+		    }
+	    return false;
+		}
+		
+		
+		
+		
+		
 		public Article read(int id){
 		
 		Article article = new Article();
