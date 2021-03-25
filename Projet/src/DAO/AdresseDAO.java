@@ -7,7 +7,7 @@ public class AdresseDAO extends DAO<Adresse>{
 	
 	public AdresseDAO(Connection conn) { 
 		super(conn); 
-		}
+	}
 	
 	@Override
 	public boolean create(Adresse obj){ 
@@ -28,6 +28,7 @@ public class AdresseDAO extends DAO<Adresse>{
     return false;
 	}
 	
+	@Override
 	public Adresse read(int id){
 		Adresse adresse = new Adresse();      
 		try {
@@ -42,41 +43,41 @@ public class AdresseDAO extends DAO<Adresse>{
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
-		return adresse;  }
-
-	@Override
-	public Adresse update(Adresse obj) {
-		// TODO Auto-generated method stub
-		try {
-            
-			this.connect.createStatement().executeQuery(
-                    "UPDATE adresse SET numRue = '" + obj.getNumRue() + 
-                    					"', nomRue = '"+ obj.getNomRue()+
-                    					"', ville = '" +obj.getVille()+
-                    					"', codePostal = '"+obj.getCodePostal()+ "'"+
-                    " WHERE idAdr = " + obj.getIdAdr()
-                 );
-        
-        obj = this.read(obj.getIdAdr());
-		} catch (SQLException e) {
-            e.printStackTrace();
-    	}
-    
-    return obj;
+		return adresse;
 	}
 
 	@Override
-	public void delete(Adresse obj) {
-		// TODO Auto-generated method stub
-		try {
-			this.connect.createStatement().executeUpdate(
-	                     "DELETE FROM adresse WHERE idAdr = " + obj.getIdAdr()
-	                );
-	    
-		} catch (SQLException e) {
+	public boolean update(Adresse obj) {
+        try {
+        	PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesAdresses SET numRue=?, nomRue=?, ville=?, codePostal=?"
+        			+ "WHERE idAdr=?");
+        	prepare.setInt(1, obj.getNumRue());
+        	prepare.setString(2, obj.getNomRue());
+        	prepare.setString(3, obj.getVille());
+        	prepare.setInt(4, obj.getCodePostal());
+        	prepare.setInt(5, obj.getIdAdr());
+        	int i = prepare.executeUpdate();
+        	if(i == 1) {
+        	    return true;
+        	}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+	@Override
+	public boolean delete(Adresse obj) {
+	    try {
+	    	Statement stmt = this.connect.createStatement();
+	        int i = stmt.executeUpdate("DELETE FROM user WHERE id=" + obj.getIdAdr());
+	        if(i == 1) {
+	    	    return true;
+	        }
+	    } catch (SQLException e) {
 	        e.printStackTrace();
-		}
+	    }
+	    return false;
 	}
 	
-
 }

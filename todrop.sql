@@ -4,7 +4,7 @@ alter table LesFichierImages drop constraint FK_ImageClient;
 alter table LesFichierImages drop constraint FK_ImagePhoto;
 
 alter table LesCommandes drop constraint FK_CommandeAdr;
-alter table LesCommandes drop constraint FL_CommandeCli;
+alter table LesCommandes drop constraint FK_CommandeCli;
 alter table LesCommandes drop constraint FK_CommandeProm;
 
 alter table LesArticles drop constraint FK_ArticleCom;

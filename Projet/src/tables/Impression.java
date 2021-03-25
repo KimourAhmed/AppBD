@@ -1,12 +1,15 @@
 package tables;
 
-public class Impression {
-	private int idImpr;
-	private String reference;
+public abstract class Impression {
+	public int idImpr;
+	public String reference;
 	
 	public Impression(int idImpr, String reference) {
 		this.idImpr = idImpr;
 		this.reference = reference;
+	}
+	
+	public Impression() {
 	}
 	
 	public int getIdImpr() {

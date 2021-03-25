@@ -6,55 +6,63 @@ public class CalendrierDAO extends DAO<Calendrier>{
 	
 	public CalendrierDAO(Connection conn) { 
 		super(conn); 
-		}
+	}
 	
-	public Calendrier create(Calendrier obj){
-		return obj;
+	public boolean create(Calendrier obj){ 
+		try {
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesCalendriers VALUES (?, ?)");
+			ps.setInt(1, obj.getIdCal());
+			ps.setString(2, obj.getReference());
+			int i = ps.executeUpdate();
+			if(i == 1) {
+			    return true;
+			}
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+    return false;
 	}
 	
 	public Calendrier read(int id){
-		Calendrier Calendrier = new Calendrier();      
+		Calendrier calendrier = new Calendrier();      
 		try {
 			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM Calendrier WHERE idCal = " + id);
+			executeQuery("SELECT * FROM LesCalendriers WHERE idCalendrier = " + id);
 		if(result.first())
-			Calendrier = new Calendrier(id,
-								result.getString("refernce"));         
+			calendrier = new Calendrier(id ,result.getString("reference"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
-		return Calendrier;  }
-
-	@Override
-	public Calendrier update(Calendrier obj) {
-		// TODO Auto-generated method stub
-		try {
-            
-			this.connect.createStatement().executeQuery(
-                    "UPDATE Calendrier SET reference= '" + obj.getReference() +"'"+
-                    " WHERE idAdr = " + obj.getIdCal()
-                 );
-        
-        obj = this.read(obj.getIdCal());
-		} catch (SQLException e) {
-            e.printStackTrace();
-    	}
-    
-    return obj;
+		return calendrier;  
 	}
 
 	@Override
-	public void delete(Calendrier obj) {
-		// TODO Auto-generated method stub
+	public boolean update(Calendrier obj) {
 		try {
-			this.connect.createStatement().executeUpdate(
-	                     "DELETE FROM Calendrier WHERE idAdr = " + obj.getIdCal()
-	                );
-	    
+			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesCalendriers SET reference=? WHERE idCal=?");
+        	prepare.setInt(1, obj.getIdCal());
+        	prepare.setString(2, obj.getReference());
+        	int i = prepare.executeUpdate();
+        	if(i == 1) {
+        	    return true;
+        	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean delete(Calendrier obj) {
+		try {
+			Statement stmt = this.connect.createStatement();
+			int i = stmt.executeUpdate("DELETE FROM LesCalendriers WHERE idCalendrier=" + obj.getIdCal());
+			if(i == 1) {
+	    	    return true;
+	        }
 		} catch (SQLException e) {
 	        e.printStackTrace();
 		}
+		return false;
 	}
-	
-
 }

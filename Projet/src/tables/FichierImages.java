@@ -18,6 +18,9 @@ public class FichierImages {
 		this.idClient = idClient;
 		this.idPhoto = idPhoto;
 	}
+	
+	public FichierImages() {
+	}
 
 	public String getCheminAcces() {
 		return cheminAcces;

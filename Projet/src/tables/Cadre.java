@@ -1,7 +1,7 @@
 package tables;
 
 
-public class Cadre {
+public class Cadre extends Impression {
 	int idCadre;
 	String reference;
 	public Cadre(int idCadre, String reference) {
@@ -9,6 +9,10 @@ public class Cadre {
 		this.idCadre = idCadre;
 		this.reference = reference;
 	}
+	
+	public Cadre() {
+	}
+	
 	public int getIdCadre() {
 		return idCadre;
 	}

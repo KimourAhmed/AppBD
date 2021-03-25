@@ -13,6 +13,9 @@ public class Page {
 		this.miseEnForme = miseEnForme;
 		this.idImpr = idImpr;
 	}
+	
+	public Page() {
+	}
 
 	public int getIdPage() {
 		return idPage;

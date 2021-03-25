@@ -3,19 +3,11 @@ import java.sql.*;
 
 public abstract class DAO<T> {
 
- 
-	
-	//public Connection connect = ConnectionPostgreSQL.getInstance();
-	protected Connection connect = null;
-	public DAO(Connection conn){
-	this.connect = conn; }
+    public Connection connect = null;
     
-    /**
-     * Permet de récupérer un objet via son ID
-     * @param id
-     * @return
-     */
-    public abstract T read(int id);
+    public DAO(Connection conn) {
+    	this.connect = conn;
+    }
     
     /**
      * Permet de créer une entrée dans la base de données
@@ -24,15 +16,25 @@ public abstract class DAO<T> {
      */
     public abstract boolean create(T obj);
     
+    
+    /**
+     * Permet de récupérer un objet via son ID
+     * @param id
+     * @return
+     */
+    public abstract T read(int id);
+    
+    
     /**
      * Permet de mettre à jour les données d'une entrée dans la base 
      * @param obj
      */
-    public abstract T update(T obj);
+    public abstract boolean update(T obj);
+    
     
     /**
      * Permet la suppression d'une entrée de la base
      * @param obj
      */
-    public abstract void delete(T obj);
+    public abstract boolean delete(T obj);
 }
