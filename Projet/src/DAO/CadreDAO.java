@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 import java.sql.*;
 import tables.*;
 
@@ -11,7 +11,7 @@ public class CadreDAO extends DAO<Cadre>{
 	public boolean create(Cadre obj){ 
 		try {
 			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesCadres VALUES (?, ?)");
-			ps.setInt(1, obj.getIdCadre());
+			ps.setInt(1, obj. getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
 			if(i == 1) {
@@ -40,7 +40,7 @@ public class CadreDAO extends DAO<Cadre>{
 	public boolean update(Cadre obj) {
 		try {
 			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesCadres SET reference=? WHERE idCadre=?");
-        	prepare.setInt(1, obj.getIdCadre());
+        	prepare.setInt(1, obj.getIdImpr());
         	prepare.setString(2, obj.getReference());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
@@ -56,7 +56,7 @@ public class CadreDAO extends DAO<Cadre>{
 	public boolean delete(Cadre obj) {
 		try {
 			Statement stmt = this.connect.createStatement();
-			int i = stmt.executeUpdate("DELETE FROM LesCadres WHERE idCadre=" + obj.getIdCadre());
+			int i = stmt.executeUpdate("DELETE FROM LesCadres WHERE idCadre=" + obj.getIdImpr());
 			if(i == 1) {
 	    	    return true;
 	        }

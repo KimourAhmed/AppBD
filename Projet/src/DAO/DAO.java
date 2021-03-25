@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 import java.sql.*;
 
 public abstract class DAO<T> {

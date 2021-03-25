@@ -7,8 +7,8 @@ public class Album extends Impression{
 	
 	public Album(int idAlbum, String reference, String titre, int idPhoto) {
 		super(idAlbum, reference);
-		this.titre = titre;
-		this.idPhoto = idPhoto;
+		setTitre( titre);
+		setIdPhoto(idPhoto);
 	}
 	
 	public Album() {

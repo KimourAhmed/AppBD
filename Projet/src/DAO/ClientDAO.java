@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 import java.sql.*;
 import tables.*;
 
@@ -30,7 +30,7 @@ public class ClientDAO extends DAO<Client>{
 		Client client = new Client();
 		try {
 			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesClients"
+			executeQuery("SELECT * FROM LesClients "
 					+ "LEFT JOIN LesCommandes ON LesCommandes.idClient = LesClients.idClient"
 					+ " WHERE idClient = " + id);
 		if(result.first())
