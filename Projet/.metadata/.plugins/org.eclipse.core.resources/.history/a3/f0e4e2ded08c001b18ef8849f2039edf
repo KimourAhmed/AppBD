@@ -1,0 +1,49 @@
+package dao;
+
+import java.sql.*;
+import tables.*;
+	
+	public class ClientDAO extends DAO<Client> {
+		
+		public ClientDAO(Connection conn) { super(conn); }
+		
+		public Client create(Client obj) { return obj; }
+	
+		public Client read(int id) {
+		
+		Client client = new Client();
+		
+		try {
+		ResultSet result = this.connect.createStatement().
+		executeQuery("SELECT * FROM  WHERE idClient = " + id);
+		if(result.first())
+		client = new Client(
+		id,
+		result.getString("adrMail"),
+		result.getString("nom"),
+		result.getString("prenom"),
+		result.getString("mdp"), 
+		result.getInt("mdp"), 
+		);
+		} catch (SQLException e) { e.printStackTrace(); }
+		return client; }
+		
+	}
+	
+	
+	
+	
+	create table LesClients (
+		    idClient int,
+		    adrMail varchar(50),
+		    nom varchar(15),
+		    prenom varchar(15),
+		    mdp varchar(15),
+		    idAdr int,
+		    primary key (idClient),
+		    constraint FK_AdrClient foreign key (idAdr) REFERENCES LesAdresses(idAdr)
+		);
+	
+	Client(int idClient, String adrMail, String name, String prenom, String mdp, int idAdr)
+	
+

@@ -1,0 +1,31 @@
+package tables;
+
+
+public class Tirage extends Impression{
+	
+	public Tirage(int idTir, String reference) {
+		super (idTir, reference);
+	}
+	
+	public Tirage() {
+		
+	}
+
+	public int getIdTir() {
+		return getIdImpr();
+	}
+
+	public void setIdTir(int idTir) {
+		setIdImpr(idTir);
+	}
+
+	public String getReference() {
+		return getReference();
+	}
+
+	public void setReference(String reference) {
+		setIdImpr(idTir);
+	}
+	
+}
+setReference

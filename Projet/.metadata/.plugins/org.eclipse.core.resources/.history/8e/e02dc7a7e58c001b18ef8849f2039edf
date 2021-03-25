@@ -1,0 +1,74 @@
+package DAO;
+	
+import java.sql.*;
+import tables.*;
+
+public class TirageDAO extends DAO<Tirage>{
+		
+	public TirageDAO(Connection conn) {
+				super(conn);
+		}
+	
+	
+	
+	@Override
+	public boolean create(Tirage obj){ 
+		try {
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesArticles VALUES (?, ?, ?, ?, ?)");
+			ps.setInt(1, obj.getIdTir());
+			ps.setString(3, obj.getReference());		
+	
+			int i = ps.executeUpdate();
+			if(i == 1) {
+			    return true;
+			}
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+    return false;
+	}
+	
+
+		public Tirage Tirageread(int id){
+		
+		Tirage tirage= new Tirage();
+				try {
+				ResultSet result = this.connect.createStatement().
+				executeQuery("SELECT * FROM LesTirages WHERE idTirage= " + id);
+				if(result.first())
+				tirage= new Tirage(id,result.getString("reference"));
+				} catch (SQLException e){
+				e.printStackTrace();
+				}
+				return tirage; }
+			
+		 @Override
+		 public Tirage update(Tirage obj) {
+		// TODO Auto-generated method stub
+			 try {
+				this.connect.createStatement().executeUpdate(
+				"UPDATE LesTirages SET reference= '" + obj.getReference() +
+			    "'"+
+				" WHERE IdTirage= " + obj.getIdTir()
+				);
+				obj = this.read(obj.getIdTir());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return obj;
+			}
+			
+			 @Override
+			public void delete(Tirage obj) {;
+				// TODO Auto-generated method stub
+				try {
+					this.connect.createStatement().executeUpdate(
+					"DELETE FROM TirageWHERE IdTirage= " + obj.getIdArticle()
+				);
+				} catch (SQLException e) {
+					e.printStackTrace();
+			}
+			}
+
+
+	}

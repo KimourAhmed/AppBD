@@ -1,0 +1,33 @@
+package dao;
+
+import java.sql.*;
+import tables.*;
+	
+	public class ClientDAO extends DAO<Client> {
+		
+		public ClientDAO(Connection conn) { super(conn); }
+		
+		public Client create(Client obj) { return obj; }
+	
+		public Client read(int id) {
+		
+		Client client = new Client();
+		
+		try {
+		ResultSet result = this.connect.createStatement().
+		executeQuery("SELECT * FROM  WHERE client_id = " + id);
+		if(result.first())
+		client = new Client(
+		id,
+		result.getString("elv_nom"),
+		result.getString("elv_prenom") 
+		);
+		} catch (SQLException e) { e.printStackTrace(); }
+		return eleve; }
+		
+	}
+	
+	
+	public Client(int idClient, String adrMail, String name, String prenom, String mdp, int idAdr)
+	
+

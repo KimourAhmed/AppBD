@@ -1,0 +1,32 @@
+package tables;
+
+
+public class Cadre extends Impression {
+	int idCadre;
+	String reference;
+	
+	
+	public Cadre(int idCadre, String reference) {	
+		super(idCadre, reference);
+	}
+	
+	public Cadre() {
+	}
+	
+	public int getIdTir() {
+		return getIdImpr();
+	}
+
+	public void setIdTir(int idTir) {
+		this.setIdImpr(idTir);
+	}
+
+	public String getReference() {
+		return getReference();
+	}
+
+	public void setReference(String reference) {
+		this.setReference(reference);
+	}
+	
+}

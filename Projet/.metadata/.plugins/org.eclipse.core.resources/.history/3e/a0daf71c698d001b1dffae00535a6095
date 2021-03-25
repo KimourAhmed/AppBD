@@ -1,0 +1,54 @@
+package tables;
+
+
+public class Album extends Impression{
+	String titre;
+	int idPhoto;
+	
+	public Album(int idAlbum, String reference, String titre, int idPhoto) {
+		super(int idAlbum, String reference);
+		this.idAlbum = idAlbum;
+		this.reference = reference;
+		this.titre = titre;
+		this.idPhoto = idPhoto;
+	}
+	
+	public Album() {
+	}
+	
+
+	public int getIdAlbum() {
+		return idAlbum;
+	}
+	
+	public void setIdAlbum(int idAlbum) {
+		this.idAlbum = idAlbum;
+	}
+	
+	public String getReference() {
+		return reference;
+	}
+	
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+	
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+	
+		this.titre = titre;
+	}
+	
+	public int getIdPhoto() {
+		return idPhoto;
+	}
+	
+	public void setIdPhoto(int idPhoto) {
+		this.idPhoto = idPhoto;
+	}
+
+	
+	
+}

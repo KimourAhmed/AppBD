@@ -30,7 +30,7 @@ public class PageDAO extends DAO<Page>{
 		Page page = new Page();      
 		try {
 			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesPages " + "LEFT JOIN LesPhotos ON LesPhotos.idPage= LesPages.idPage" + "WHERE idPage = " + id);
+			executeQuery("SELECT * FROM LesPages WHERE idPage = " + id);
 		if(result.first())
 			page = new Page(id,
 								result.getString("textDescriptif"),
