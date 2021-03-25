@@ -11,7 +11,7 @@ public class TirageDAO extends DAO<Tirage>{
 	public boolean create(Tirage obj){ 
 		try {
 			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesTirages VALUES (?, ?)");
-			ps.setInt(1, obj.getIdTir());
+			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
 			if(i == 1) {
@@ -40,7 +40,7 @@ public class TirageDAO extends DAO<Tirage>{
 	public boolean update(Tirage obj) {
 		try {
 			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesTirages SET reference=? WHERE idTir=?");
-        	prepare.setInt(1, obj.getIdTir());
+        	prepare.setInt(1, obj.getIdImpr());
         	prepare.setString(2, obj.getReference());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
@@ -56,7 +56,7 @@ public class TirageDAO extends DAO<Tirage>{
 	public boolean delete(Tirage obj) {
 		try {
 			Statement stmt = this.connect.createStatement();
-			int i = stmt.executeUpdate("DELETE FROM LesTirages WHERE idCadre=" + obj.getIdTir());
+			int i = stmt.executeUpdate("DELETE FROM LesTirages WHERE idCadre=" + obj.getIdImpr());
 			if(i == 1) {
 	    	    return true;
 	        }

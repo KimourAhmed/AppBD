@@ -11,7 +11,7 @@ public class CalendrierDAO extends DAO<Calendrier>{
 	public boolean create(Calendrier obj){ 
 		try {
 			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesCalendriers VALUES (?, ?)");
-			ps.setInt(1, obj.getIdCal());
+			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
 			if(i == 1) {
@@ -40,7 +40,7 @@ public class CalendrierDAO extends DAO<Calendrier>{
 	public boolean update(Calendrier obj) {
 		try {
 			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesCalendriers SET reference=? WHERE idCal=?");
-        	prepare.setInt(1, obj.getIdCal());
+        	prepare.setInt(1, obj.getIdImpr());
         	prepare.setString(2, obj.getReference());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
@@ -56,7 +56,7 @@ public class CalendrierDAO extends DAO<Calendrier>{
 	public boolean delete(Calendrier obj) {
 		try {
 			Statement stmt = this.connect.createStatement();
-			int i = stmt.executeUpdate("DELETE FROM LesCalendriers WHERE idCalendrier=" + obj.getIdCal());
+			int i = stmt.executeUpdate("DELETE FROM LesCalendriers WHERE idCalendrier=" + obj.getIdImpr());
 			if(i == 1) {
 	    	    return true;
 	        }

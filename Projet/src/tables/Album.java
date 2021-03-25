@@ -1,6 +1,5 @@
 package tables;
 
-
 public class Album extends Impression{
 	String titre;
 	int idPhoto;
@@ -12,23 +11,6 @@ public class Album extends Impression{
 	}
 	
 	public Album() {
-	}
-	
-
-	public int getIdAlbum() {
-		return idImpr;
-	}
-	
-	public void setIdAlbum(int idAlbum) {
-		this.idImpr = idAlbum;
-	}
-	
-	public String getReference() {
-		return reference;
-	}
-	
-	public void setReference(String reference) {
-		this.reference = reference;
 	}
 	
 	public String getTitre() {
@@ -45,8 +27,5 @@ public class Album extends Impression{
 	
 	public void setIdPhoto(int idPhoto) {
 		this.idPhoto = idPhoto;
-	}
-
-	
-	
+	}	
 }

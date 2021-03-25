@@ -11,7 +11,7 @@ public class AlbumDAO extends DAO<Album>{
 	public boolean create(Album obj){ 
 		try {
 			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesAlbums VALUES (?, ?)");
-			ps.setInt(1, obj.getIdAlbum());
+			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
 			if(i == 1) {
@@ -43,7 +43,7 @@ public class AlbumDAO extends DAO<Album>{
         	prepare.setString(1, obj.getReference());
         	prepare.setString(2, obj.getTitre());
         	prepare.setInt(3, obj.getIdPhoto());
-        	prepare.setInt(4, obj.getIdAlbum());
+        	prepare.setInt(4, obj.getIdImpr());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
         	    return true;
@@ -58,7 +58,7 @@ public class AlbumDAO extends DAO<Album>{
 	public boolean delete(Album obj) {
 		try {
 			Statement stmt = this.connect.createStatement();
-			int i = stmt.executeUpdate("DELETE FROM LesAlbums WHERE idAlbum=" + obj.getIdAlbum());
+			int i = stmt.executeUpdate("DELETE FROM LesAlbums WHERE idAlbum=" + obj.getIdImpr());
 			if(i == 1) {
 	    	    return true;
 	        }

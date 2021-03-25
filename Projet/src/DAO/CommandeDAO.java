@@ -74,7 +74,7 @@ public class CommandeDAO extends DAO<Commande> {
 			int i = stmt.executeUpdate("DELETE FROM Commande WHERE idCommande = " + obj.getIdCommande());
 			if(i == 1) {
 	    	    return true;
-	        }
+	        } 
 		} catch (SQLException e) {
 	        e.printStackTrace();
 		}

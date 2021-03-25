@@ -1,33 +1,14 @@
 package tables;
 
 
-public class Tirage {
-	int idTir;
-	String reference;
+public class Tirage extends Impression{
 	
 	public Tirage(int idTir, String reference) {
-		this.idTir = idTir;
-		this.reference = reference;
+		super (idTir, reference);
 	}
 	
 	public Tirage() {
 		
 	}
 
-	public int getIdTir() {
-		return idTir;
-	}
-
-	public void setIdTir(int idTir) {
-		this.idTir = idTir;
-	}
-
-	public String getReference() {
-		return reference;
-	}
-
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
-	
 }

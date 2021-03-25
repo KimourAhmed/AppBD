@@ -2,18 +2,12 @@ package tables;
 
 
 public class Cadre extends Impression {
-	int idCadre;
-	String reference;
-	
-	
+
 	public Cadre(int idCadre, String reference) {	
 		super(idCadre, reference);
 	}
 	
 	public Cadre() {
 	}
-	
-	
-	
 	
 }
