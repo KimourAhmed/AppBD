@@ -1,12 +1,16 @@
 package tables;
 
+import java.util.HashSet;
+import java.util.Set;
 
 public class Page {
 	int idPage;
 	String textDescriptif;
 	String miseEnForme;
 	int idImpr;
+	private Set<Photo> listPhotos = new HashSet<Photo>(); //Liste des photos
 	
+
 	public Page(int idPage, String textDescriptif, String miseEnForme, int idImpr) {
 		this.idPage = idPage;
 		this.textDescriptif = textDescriptif;
@@ -15,6 +19,7 @@ public class Page {
 	}
 	
 	public Page() {
+		
 	}
 
 	public int getIdPage() {
@@ -49,7 +54,23 @@ public class Page {
 		this.idImpr = idImpr;
 	}
 	
-	
-	
+	public Set<Photo> getListPhotos() {
+		return listPhotos;
+	}
+
+	public void setListPhotos(Set<Photo> listPhotos) {
+		this.listPhotos = listPhotos;
+	}
+
+	//Ajoute
+	public void addPhoto(Photo photo){
+			this.listPhotos.add(photo); 
+	}
+			
+	//Retire 
+	public void removePhoto(Photo photo){
+		this.listPhotos.remove(photo); 
+	}
 	
 }
+
