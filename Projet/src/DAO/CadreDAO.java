@@ -11,10 +11,16 @@ public class CadreDAO extends DAO<Cadre>{
 	public boolean create(Cadre obj){ 
 		try {
 			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesCadres VALUES (?, ?)");
-			ps.setInt(1, obj. getIdImpr());
+			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
-			if(i == 1) {
+			
+			PreparedStatement ps2 = this.connect.prepareStatement("INSERT INTO LesImpressions VALUES (?, ?)");
+			ps2.setInt(1, obj.getIdImpr()+4000);
+			ps2.setString(2, obj.getReference());
+			int j = ps2.executeUpdate();
+			
+			if(j == 1 && i == 1) {
 			    return true;
 			}
 		} catch (SQLException ex) {
@@ -26,8 +32,10 @@ public class CadreDAO extends DAO<Cadre>{
 	public Cadre read(int id){
 		Cadre cadre = new Cadre();      
 		try {
-			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesCadres WHERE idCadre = " + id);
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).
+			executeQuery("SELECT * FROM LesCadres "
+					+ "JOIN LesPages ON (IdCadre=IdImpr)" 
+					+ "WHERE idCadre = " + id);
 		if(result.first())
 			cadre = new Cadre(id ,result.getString("reference"));         
 			} catch (SQLException e){

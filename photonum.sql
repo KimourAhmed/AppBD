@@ -18,13 +18,26 @@ create table LesClients (
     constraint FK_AdrClient foreign key (idAdr) REFERENCES LesAdresses(idAdr)
 );
  
+create table LesImpressions (
+    idImpr int,
+    reference varchar(20),
+    primary key (idImpr)
+);
+ 
+create table LesPages (
+    idPage int,
+    textDescriptif varchar(50),
+    miseEnForme varchar(50),
+    idImpr int,
+    primary key(idPage),
+    constraint FK_PageImpr foreign key (idImpr) REFERENCES LesImpressions(idImpr)
+);
+ 
 create table LesPhotos (
     idPhoto int primary key,
     parametresRetouche varchar(50),
-	idPage int,
-	idTir int,
-	constraint FK_PhotoPage foreign key (idPage) REFERENCES LesPages(idPage),
-    constraint FK_PhotoTir  foreign key (idTir) REFERENCES LesTirages(idTir)
+  	idPage int,
+  	constraint FK_PhotoPage foreign key (idPage) REFERENCES LesPages(idPage)
 );
  
 create table LesFichierImages (
@@ -38,12 +51,13 @@ create table LesFichierImages (
     constraint FK_ImageClient foreign key (idClient) REFERENCES LesClients(idClient),
     constraint FK_ImagePhoto foreign key (idPhoto) REFERENCES LesPhotos(idPhoto)
 );
- 
-create table LesPromotions (
-    codeProm int,
-    taux float,
-    utilise number(1),
-    primary key (codeProm)
+
+create table LesTirages(
+    idTir int,
+    reference varchar(20),
+    cheminAcces varchar(50),
+    primary key(idTir),
+    constraint FK_TirImage foreign key (cheminAcces) REFERENCES LesFichierImages(cheminAcces)
 );
  
 create table LesCommandes (
@@ -53,20 +67,21 @@ create table LesCommandes (
     statut varchar(15),
     idAdr int,
     idClient int,
-    codeProm int,
     primary key(idCommande),
     constraint LesCommandes_C1 check (statut in ('En cours', 'Pret a lenvoi', 'Envoyee')),
     constraint FK_CommandeAdr foreign key (idAdr) REFERENCES LesAdresses(idAdr),
-    constraint FK_CommandeCli foreign key (idClient) REFERENCES LesClients(idClient),
-    constraint FK_CommandeProm foreign key (codeProm) REFERENCES LesPromotions(codeProm)
+    constraint FK_CommandeCli foreign key (idClient) REFERENCES LesClients(idClient)
 );
  
-create table LesImpressions (
-    idImpr int,
-    reference varchar(20),
-    primary key (idImpr)
+create table LesPromotions (
+    codeProm int,
+    taux float,
+    utilise number(1),
+    idCommande int,
+    primary key (codeProm),
+    constraint FK_PromCommande foreign key (idCommande) REFERENCES LesCommandes(idCommande)
 );
- 
+
 create table LesArticles (
     idArticle int,
     prixImpression float,
@@ -77,16 +92,7 @@ create table LesArticles (
     constraint FK_ArticleCom foreign key (idCommande) REFERENCES LesCommandes(idCommande),
     constraint FK_ArticleImpr foreign key (idImpr) REFERENCES LesImpressions(idImpr)
 );
- 
-create table LesPages (
-    idPage int,
-    textDescriptif varchar(50),
-    miseEnForme varchar(50),
-    idImpr int,
-    primary key(idPage),
-    constraint FK_PageImpr foreign key (idImpr) REFERENCES LesImpressions(idImpr)
-);
- 
+
 create table LesAlbums (
     idAlbum int,
     reference varchar(20),
@@ -108,13 +114,6 @@ create table LesCalendriers(
     primary key (idCal)
 );
  
-create table LesTirages(
-    idTir int,
-    reference varchar(20),
-    primary key(idTir)
-);
- 
- 
 create table LesStocks (
     supportImpression varchar(10),
     quantite int,
@@ -124,6 +123,6 @@ create table LesStocks (
 
 create table LesSupportImpressions (
     valeur varchar(10),
-    constraint LesStocks_C1 check (valeur in ('papier', 'cadre', 'calendrier', 'album')),
+    constraint LesSupportImpressions_C1 check (valeur in ('papier', 'cadre', 'calendrier', 'album')),
     primary key (valeur)
 );

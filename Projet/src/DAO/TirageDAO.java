@@ -10,16 +10,25 @@ public class TirageDAO extends DAO<Tirage>{
 	
 	public boolean create(Tirage obj){ 
 		try {
-			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesTirages VALUES (?, ?)");
-			ps.setInt(1, obj.getIdImpr());
-			ps.setString(2, obj.getReference());
-			int i = ps.executeUpdate();
-			if(i == 1) {
+			PreparedStatement ps1 = this.connect.prepareStatement("INSERT INTO LesTirages VALUES (?, ?, ?)");
+			ps1.setInt(1, obj.getIdImpr());
+			ps1.setString(2, obj.getReference());
+			ps1.setString(3, obj.getCheminAcces());
+			int i = ps1.executeUpdate();
+			
+			PreparedStatement ps2 = this.connect.prepareStatement("INSERT INTO LesImpressions VALUES (?, ?)");
+			ps2.setInt(1, obj.getIdImpr()+1000);
+			ps2.setString(2, obj.getReference());
+			int j = ps2.executeUpdate();
+			
+			if(j == 1 && i == 1) {
 			    return true;
 			}
 		} catch (SQLException ex) {
 	        ex.printStackTrace();
 	    }
+		
+		
     return false;
 	}
 	
@@ -29,7 +38,7 @@ public class TirageDAO extends DAO<Tirage>{
 			ResultSet result = this.connect.createStatement().
 			executeQuery("SELECT * FROM LesTirages WHERE idTir = " + id);
 		if(result.first())
-			tirage = new Tirage(id ,result.getString("reference"));         
+			tirage = new Tirage(id ,result.getString("reference"), result.getString("cheminAcces"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
@@ -39,9 +48,10 @@ public class TirageDAO extends DAO<Tirage>{
 	@Override
 	public boolean update(Tirage obj) {
 		try {
-			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesTirages SET reference=? WHERE idTir=?");
+			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesTirages SET reference=?, cheminAcces=? WHERE idTir=?");
         	prepare.setInt(1, obj.getIdImpr());
         	prepare.setString(2, obj.getReference());
+        	prepare.setString(3, obj.getCheminAcces());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
         	    return true;
@@ -65,4 +75,5 @@ public class TirageDAO extends DAO<Tirage>{
 		}
 		return false;
 	}
+
 }

@@ -14,9 +14,16 @@ public class CalendrierDAO extends DAO<Calendrier>{
 			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
 			int i = ps.executeUpdate();
-			if(i == 1) {
+			
+			PreparedStatement ps2 = this.connect.prepareStatement("INSERT INTO LesImpressions VALUES (?, ?)");
+			ps2.setInt(1, obj.getIdImpr()+3000);
+			ps2.setString(2, obj.getReference());
+			int j = ps2.executeUpdate();
+			
+			if(j == 1 && i == 1) {
 			    return true;
 			}
+			
 		} catch (SQLException ex) {
 	        ex.printStackTrace();
 	    }
@@ -26,8 +33,10 @@ public class CalendrierDAO extends DAO<Calendrier>{
 	public Calendrier read(int id){
 		Calendrier calendrier = new Calendrier();      
 		try {
-			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesCalendriers WHERE idCalendrier = " + id);
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).
+			executeQuery("SELECT * FROM LesCalendriers "
+					+ " JOIN LesPages ON (IdCal=IdImpr)"
+					+ " WHERE idCal = " + id);
 		if(result.first())
 			calendrier = new Calendrier(id ,result.getString("reference"));         
 			} catch (SQLException e){

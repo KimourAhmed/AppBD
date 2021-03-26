@@ -14,7 +14,7 @@ public class FichierImagesDAO extends DAO<FichierImages>{
 			ps.setString(1, obj.getCheminAcces());
 			ps.setString(2, obj.getInfoPriseDeVue());
 			ps.setInt(3, obj.getResolutionImage());
-			ps.setBoolean(4, obj.isEstParatge());
+			ps.setInt(4, obj.getEstPartage());
 			ps.setInt(5, obj.getIdClient());
 			ps.setInt(6, obj.getIdPhoto());
 			int i = ps.executeUpdate();
@@ -34,7 +34,7 @@ public class FichierImagesDAO extends DAO<FichierImages>{
 			executeQuery("SELECT * FROM LesFichierImages WHERE cheminAcces = " + chemin);
 		if(result.first())
 			fichierImage = new FichierImages(chemin, result.getString("infoPriseDeVue"), result.getInt("resolutionImage"), 
-					 result.getBoolean("estPartage"),  result.getInt("idClient"),  result.getInt("idPhoto"));         
+					 result.getInt("estPartage"),  result.getInt("idClient"),  result.getInt("idPhoto"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
@@ -49,7 +49,7 @@ public class FichierImagesDAO extends DAO<FichierImages>{
 					+ "estPartage=?, idClient=? idPhoto=? WHERE cheminAcces=?");
         	prepare.setString(1, obj.getInfoPriseDeVue());
         	prepare.setInt(2, obj.getResolutionImage());
-        	prepare.setBoolean(3, obj.isEstParatge());
+        	prepare.setInt(3, obj.getEstPartage());
         	prepare.setInt(4, obj.getIdClient());
         	prepare.setInt(5, obj.getIdPhoto());
         	prepare.setString(6, obj.getCheminAcces());

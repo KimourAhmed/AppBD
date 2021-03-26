@@ -10,11 +10,19 @@ public class AlbumDAO extends DAO<Album>{
 	
 	public boolean create(Album obj){ 
 		try {
-			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesAlbums VALUES (?, ?)");
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesAlbums VALUES (?, ?, ?, ?)");
 			ps.setInt(1, obj.getIdImpr());
 			ps.setString(2, obj.getReference());
+			ps.setString(3, obj.getTitre());
+			ps.setInt(4, obj.getIdPhoto());
 			int i = ps.executeUpdate();
-			if(i == 1) {
+			
+			PreparedStatement ps2 = this.connect.prepareStatement("INSERT INTO LesImpressions VALUES (?, ?)");
+			ps2.setInt(1, obj.getIdImpr()+2000);
+			ps2.setString(2, obj.getReference());
+			int j = ps2.executeUpdate();
+			
+			if(j == 1 && i == 1) {
 			    return true;
 			}
 		} catch (SQLException ex) {
@@ -26,8 +34,11 @@ public class AlbumDAO extends DAO<Album>{
 	public Album read(int id){
 		Album album = new Album();      
 		try {
-			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesAlbums WHERE idAlbum = " + id);
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE).
+			executeQuery("SELECT * FROM LesAlbum"
+					+  " JOIN LesPages ON (idAlbum=idImpr)"
+                    + " WHERE idAlbum = " + id);
 		if(result.first())
 			album = new Album(id ,result.getString("reference"), result.getString("titre"), result.getInt("idPhoto"));    
 			} catch (SQLException e){
