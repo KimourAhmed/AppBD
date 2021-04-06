@@ -35,7 +35,7 @@ public class TirageDAO extends DAO<Tirage>{
 	public Tirage read(int id){
 		Tirage tirage = new Tirage();      
 		try {
-			ResultSet result = this.connect.createStatement().
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).
 			executeQuery("SELECT * FROM LesTirages WHERE idTir = " + id);
 		if(result.first())
 			tirage = new Tirage(id ,result.getString("reference"), result.getString("cheminAcces"));         

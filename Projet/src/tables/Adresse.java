@@ -1,5 +1,4 @@
 package tables;
-
 public class Adresse {
 	private int idAdr; // Id
 	private int numRue; //

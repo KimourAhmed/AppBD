@@ -8,15 +8,17 @@ public class FichierImages {
 	private int estPartage;
 	private int idClient;
 	private int idPhoto;
+	private int conservation;
 	
 	public FichierImages(String cheminAcces, String infoPriseDeVue, int resolutionImage, int estPartage,
-			int idClient, int idPhoto) {
+			int idClient, int idPhoto , int conservation) {
 		this.cheminAcces = cheminAcces;
 		this.infoPriseDeVue = infoPriseDeVue;
 		this.resolutionImage = resolutionImage;
 		this.estPartage = estPartage;
 		this.idClient = idClient;
 		this.idPhoto = idPhoto;
+		this.conservation = conservation;
 	}
 
 	public FichierImages() {
@@ -75,9 +77,24 @@ public class FichierImages {
 		String str = "Chemin Access : " + this.getCheminAcces() + "\n";
         str += "Info prise de vue : " + this.getInfoPriseDeVue() + "\n";
         str += "Resolution Image : " + this.getResolutionImage() + "\n";
-        str += "Est Partagé : " + this.getEstPartage() + "\n";
+        str += "Est PartagÃ© : " + this.getEstPartage() + "\n";
         str += "ID client : " + this.getIdClient() + "\n";
         str += "ID Photo : " + this.getIdPhoto() + "\n";
+        str += "Conservation : " + this.conservation + "\n";
         return str;
 	}
+	
+	public int getConservation() {
+		return conservation;
+	}
+	
+	
+	public void setConservation(int conservation) {
+		this.conservation=conservation;
+	}
+	
+	public void diminueConservation() {
+		this.conservation+=-1;
+	}
+
 }

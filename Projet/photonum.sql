@@ -9,7 +9,7 @@ create table LesAdresses (
  
 create table LesClients (
     idClient int,
-    adrMail varchar(50),
+    adrMail varchar(50) UNIQUE,
     nom varchar(15),
     prenom varchar(15),
     mdp varchar(15),
@@ -45,6 +45,7 @@ create table LesFichierImages (
     infoPriseDeVue varchar(50),
     resolutionImage int,
     estPartage NUMBER(1),
+    conservation int,
     idClient int,
     idPhoto int,
     primary key (cheminAcces),

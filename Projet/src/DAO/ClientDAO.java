@@ -9,10 +9,10 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean create(Client obj) {
 			try {
-				PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesClients VALUES (?, ?, ?, ?, ?)");
+				PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesClients VALUES (?, ?, ?, ?, ?, ?)");
 				ps.setInt(1, obj.getIdClient());
 				ps.setString(2, obj.getAdrMail());
-				ps.setString(3, obj.getName());
+				ps.setString(3, obj.getNom());
 				ps.setString(4, obj.getPrenom());
 				ps.setString(5, obj.getMdp());
 				ps.setInt(6, obj.getIdAdr());
@@ -25,31 +25,43 @@ public class ClientDAO extends DAO<Client>{
 		    }
 	    return false;
 	}
-		
-	public Client read(int id) {
-		Client client = new Client();
-		try {
-			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM LesClients "
-					+ "LEFT JOIN LesCommandes ON LesCommandes.idClient = LesClients.idClient"
-					+ " WHERE idClient = " + id);
-		if(result.first())
-		client= new Client(
-			id,
-			result.getString("adrMail"),
-			result.getString("name"),
-			result.getString("prenom"),
-			result.getString("mdp"),
-			result.getInt("idAdr")
-		);
-		result.beforeFirst();
-		CommandeDAO comDao = new CommandeDAO(this.connect);
-		while(result.next())
-			client.addCommande(comDao.read(result.getInt("idCommande")));
-		} catch (SQLException e) { e.printStackTrace(); }
-		return client; 
-	}
+
 	
+	public Client read(int id) {
+        Client client = new Client();
+        CommandeDAO comDao = new CommandeDAO(this.connect);
+    	FichierImagesDAO fichierDao = new FichierImagesDAO(this.connect);
+        try {
+            ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE).
+            executeQuery("SELECT * FROM LesClients"
+                    + " NATURAL LEFT JOIN LesCommandes"
+                    + " WHERE idClient="+id);
+	        if(result.first()) {
+		        client= new Client(
+		            id,
+		            result.getString("adrMail"),
+		            result.getString("nom"),
+		            result.getString("prenom"),
+		            result.getString("mdp"),
+		            result.getInt("idAdr")
+		        );
+		        result.beforeFirst();
+		        
+		        while(result.next()) {
+		        	client.addCommande(comDao.read(result.getInt("idCommande")));
+		        }
+		        
+		        result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).
+		                executeQuery("SELECT cheminAcces FROM LesFichierImages WHERE idClient="+id);
+		        
+		        result.beforeFirst();
+		        while(result.next())
+		        	client.addFichierImage(fichierDao.read(result.getString("cheminAcces")));
+	        }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return client; 
+    }
 
 	@Override
 	public boolean update(Client obj) {
@@ -57,7 +69,7 @@ public class ClientDAO extends DAO<Client>{
 			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesClients SET adrMail=?, name=?, prenom=?, mdp=?"
         			+ "WHERE idClient=?");
         	prepare.setString(1, obj.getAdrMail());
-        	prepare.setString(2, obj.getName());
+        	prepare.setString(2, obj.getNom());
         	prepare.setString(3, obj.getPrenom());
         	prepare.setString(4, obj.getMdp());
         	prepare.setInt(5, obj.getIdAdr());

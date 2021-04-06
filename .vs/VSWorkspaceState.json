@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Projet",
+    "\\Projet\\src",
+    "\\Projet\\src\\dao"
   ],
-  "SelectedNode": "\\tirage.sql",
+  "SelectedNode": "\\Projet\\src\\dao\\ClientDAO.java",
   "PreviewInSolutionExplorer": false
 }

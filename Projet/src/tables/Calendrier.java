@@ -44,6 +44,3 @@ public class Calendrier extends Impression {
 	}
 	
 }
-
-
-

@@ -3,25 +3,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Client {
-	int idClient;
-	String adrMail;
-	String name;
-	String prenom;
-	String mdp;
-	int idAdr;
-	private Set<Commande> listCommandes = new HashSet<Commande>(); //Liste des commandes
-	private Set<FichierImages> listFichierImages = new HashSet<FichierImages>(); //Liste des commandes
+	private int idClient;
+	private String adrMail;
+	private String nom;
+	private String prenom;
+	private String mdp;
+	private int idAdr;
+	private Set<Commande> listCommandes = new HashSet<Commande>();
+	private Set<FichierImages> listFichierImages = new HashSet<FichierImages>();
 	
-	public Client(int idClient, String adrMail, String name, String prenom, String mdp, int idAdr) {
+	public Client(int idClient, String adrMail, String nom, String prenom, String mdp, int idAdr) {
 		this.idClient = idClient;
 		this.adrMail = adrMail;
-		this.name = name;
+		this.nom = nom;
 		this.prenom = prenom;
 		this.mdp = mdp;
 		this.idAdr = idAdr;
 	}
 
 	public Client() {
+		
 	}
 
 	public int getIdClient() {
@@ -40,12 +41,12 @@ public class Client {
 		this.adrMail = adrMail;
 	}
 
-	public String getName() {
-		return name;
+	public String getNom() {
+		return nom;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public String getPrenom() {
@@ -71,12 +72,7 @@ public class Client {
 	public void setIdAdr(int idAdr) {
 		this.idAdr = idAdr;
 	}
-	
-	public String toString() {
-		return "Client [adresseMail=" + adrMail + ", nom=" + name + ", prenom=" + prenom + ", mot de passe=" + mdp+ "]";
-	}
-	
-	
+
 	public Set<FichierImages> getListFichierImages() {
 		return listFichierImages;
 	}
@@ -112,6 +108,15 @@ public class Client {
 	public void removeFichierImage(FichierImages fichier){
 		this.listFichierImages.remove(fichier); 
 	}
-
+	
+	public String toString() {
+		String str = "ID : " + this.getIdClient() + "\n";
+        str += "Adresse Mail : " + this.getAdrMail() + "\n";
+        str += "Nom : " + this.getNom() + "\n";
+        str += "Prénom : " + this.getPrenom() + "\n";
+        str += "Liste de commandes : " + this.getListCommandes() + "\n";
+        str += "Liste de fichiers images : " + this.getListFichierImages() + "\n";
+        return str;
+	}
 	
 }

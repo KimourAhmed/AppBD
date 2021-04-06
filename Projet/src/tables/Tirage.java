@@ -3,7 +3,7 @@ package tables;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tirage extends Impression{
+public class Tirage extends Impression {
 	String cheminAcces;
 	private Set<Photo> listPhotos = new HashSet<Photo>(); //Liste des photos
 	

@@ -1,4 +1,5 @@
 package jdbc;
+/*package tplogo;*/
 import java.io.*;
 
 /**
@@ -59,13 +60,13 @@ public class LectureClavier {
     public static int lireEntier(String invite) {
         int res = 0;
         boolean ok = false;
-        System.out.println(invite + " ");
+        System.out.print(invite + " ");
         do {
             try {
                 res = Integer.parseInt(stdin.readLine());
                 ok = true;
             } catch (NumberFormatException nbfe) {
-                System.out.println("entrez un entier");
+                //System.out.println("entrez un entier");
                 System.out.println(invite + " ");
             } catch (Exception e) {
                 erreurEntree(e,"entier");

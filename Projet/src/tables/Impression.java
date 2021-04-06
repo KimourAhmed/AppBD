@@ -23,7 +23,5 @@ public abstract class Impression {
 	}
 	public void setReference(String reference) {
 		this.reference = reference;
-	}
-	
-	
+	}	
 }

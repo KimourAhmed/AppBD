@@ -15,10 +15,11 @@ public class PromotionDAO extends DAO<Promotion>{
 	
 	public boolean create(Promotion obj){ 
 		try {
-			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesPromotions VALUES (?, ?, ?)");
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesPromotions VALUES (?, ?, ?, ?)");
 			ps.setInt(1, obj.getCodeProm());
 			ps.setFloat(2, obj.getTaux());
-			ps.setBoolean(3, obj.isUtilise());
+			ps.setInt(3, obj.getUtilise());
+			ps.setInt(4, obj.getIdCommande());
 			int i = ps.executeUpdate();
 			if(i == 1) {
 			    return true;
@@ -35,7 +36,7 @@ public class PromotionDAO extends DAO<Promotion>{
 			ResultSet result = this.connect.createStatement().
 			executeQuery("SELECT * FROM LesPromotions WHERE codeProm = " + code);
 		if(result.first())
-			promotion = new Promotion(code, result.getFloat("taux"), result.getBoolean("utilise"));         
+			promotion = new Promotion(code, result.getFloat("taux"), result.getInt("utilise"), result.getInt("idCommande"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
@@ -45,9 +46,10 @@ public class PromotionDAO extends DAO<Promotion>{
 	@Override
 	public boolean update(Promotion obj) {
 		try {
-			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesPromotions SET taux=?, utilise=? WHERE codeProm=?");
+			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesPromotions SET taux=?, utilise=?, idCommande=? WHERE codeProm=?");
         	prepare.setFloat(1, obj.getTaux());
-        	prepare.setBoolean(2, obj.isUtilise());
+        	prepare.setInt(2, obj.getUtilise());
+        	prepare.setInt(3, obj.getIdCommande());
         	prepare.setInt(4, obj.getCodeProm());
         	int i = prepare.executeUpdate();
         	if(i == 1) {
@@ -72,4 +74,5 @@ public class PromotionDAO extends DAO<Promotion>{
 		}
 		return false;
 	}
+
 }

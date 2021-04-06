@@ -1,5 +1,6 @@
 package tables;
 
+
 public class Article {
 	private int idArticle;
 	private double prixImpression;
@@ -8,7 +9,6 @@ public class Article {
 	private int idImpr;
 	
 	public Article(int idArticle, double prixImpression, int quantite, int idCommande, int idImpr) {
-		super();
 		this.idArticle = idArticle;
 		this.prixImpression = prixImpression;
 		this.quantite = quantite;
@@ -16,7 +16,6 @@ public class Article {
 		this.idImpr = idImpr;
 	}
 	
-
 	public Article() {
 		
 	}
@@ -61,7 +60,14 @@ public class Article {
 		this.idImpr = idImpr;
 	}
 	
-	
+	public String toString() {
+		String str = "ID : " + this.getIdArticle() + "\n";
+        str += "Prix : " + this.getPrixImpression() + "\n";
+        str += "Quantité : " + this.getQuantite() + "\n";
+        str += "ID Commande : " + this.getIdCommande() + "\n";
+        str += "ID Impression : " + this.getIdImpr() + "\n";
+        return str;
+	}
 	
 	
 }

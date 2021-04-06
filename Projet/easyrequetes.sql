@@ -21,16 +21,16 @@ INSERT INTO LesPhotos VALUES (1, 'param10', 1);
 INSERT INTO LesPhotos VALUES (2, 'param11', 1);
 INSERT INTO LesPhotos VALUES (3, 'param12', 2);
 
-INSERT INTO LesFichierImages VALUES ('C:/Images/image1.png' , 'prisedevue1' , 10, 0, 1, 1 );
-INSERT INTO LesFichierImages VALUES ('C:/Images/image2.png' , 'prisedevue2' , 15, 0, 1, 2 );
-INSERT INTO LesFichierImages VALUES ('C:/Images/image3.png' , 'prisedevue3' , 15, 0, 2, 3 );
+INSERT INTO LesFichierImages VALUES ('C:/Images/image1.png' , 'prisedevue1' , 10, 0, 10, 1, 1);
+INSERT INTO LesFichierImages VALUES ('C:/Images/image2.png' , 'prisedevue2' , 15, 0, 5 , 1, 2);
+INSERT INTO LesFichierImages VALUES ('C:/Images/image3.png' , 'prisedevue3' , 15, 0, 10, 2, 3);
 
 INSERT INTO LesTirages VALUES (1, 'CALA4BRIL', 'C:/Images/image1.png');
 INSERT INTO LesTirages VALUES (2, '30x15MAT' , 'C:/Images/image2.png');
 
-INSERT INTO LesCommandes VALUES (100, DATE '2021-01-01', 150 , 'En cours', 1, 1);
-INSERT INTO LesCommandes VALUES (101, DATE '2021-01-02', 50 , 'En cours', 2, 2);
-INSERT INTO LesCommandes VALUES (102, DATE '2021-01-03', 50 , 'En cours', 1, 1);
+INSERT INTO LesCommandes VALUES (100, '01-01-2021', 150 , 'En cours', 1, 1);
+INSERT INTO LesCommandes VALUES (101, '02-01-2021', 50 , 'En cours', 2, 2);
+INSERT INTO LesCommandes VALUES (102, '03-01-2021', 50 , 'En cours', 1, 1);
 
 INSERT INTO LesPromotions VALUES (1010, 0.05, 0, 100);
 

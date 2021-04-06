@@ -1,15 +1,16 @@
 package tables;
 
-
 public class Promotion {
 	int codeProm;
     float taux;
-    boolean utilise;
+    int utilise;
+    int idCommande;
 	
-    public Promotion(int codeProm, float taux, boolean utilise) {
+    public Promotion(int codeProm, float taux, int utilise, int idCommande) {
 		this.codeProm = codeProm;
 		this.taux = taux;
 		this.utilise = utilise;
+		this.idCommande = idCommande;
 	}
     
     public Promotion() {};
@@ -27,11 +28,17 @@ public class Promotion {
 	public void setTaux(float taux) {
 		this.taux = taux;
 	}
-	public boolean isUtilise() {
+	public int getUtilise() {
 		return utilise;
 	}
-	public void setUtilise(boolean utilise) {
+	public void setUtilise(int utilise) {
 		this.utilise = utilise;
+	}
+	public int getIdCommande() {
+		return idCommande;
+	}
+	public void setIdCommande(int idCommande) {
+		this.idCommande = idCommande;
 	}
     
     

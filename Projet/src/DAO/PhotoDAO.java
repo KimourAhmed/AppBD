@@ -10,13 +10,19 @@ public class PhotoDAO extends DAO<Photo>{
 	
 	public boolean create(Photo obj){ 
 		try {
-			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesPhotos VALUES (?, ?, ?, ?)");
+			PreparedStatement ps = this.connect.prepareStatement("INSERT INTO LesPhotos VALUES (?, ?, ?)");
 			ps.setInt(1, obj.getIdPhoto());
 			ps.setString(2, obj.getParametresRetouche());
-			ps.setInt(3, obj.getIdPage());
-			ps.setInt(4, obj.getIdTir());
+			if (obj.getIdPage() < 0) {
+				ps.setString(3, null);
+			} else {
+				ps.setInt(3, obj.getIdPage());
+			}
+			
 			int i = ps.executeUpdate();
 			if(i == 1) {
+				System.out.println("INSERT INTO LesPhotos VALUES (" + obj.getIdPhoto() +", '" + obj.getParametresRetouche() + "', "
+						+ obj.getIdPage() + ")");
 			    return true;
 			}
 		} catch (SQLException ex) {
@@ -32,8 +38,7 @@ public class PhotoDAO extends DAO<Photo>{
 			executeQuery("SELECT * FROM LesPhotos WHERE idPhoto = " + id);
 		if(result.first())
 			photo = new Photo(id,result.getString("parametresRetouche"),
-					result.getInt("idPage"),
-					result.getInt("idTir"));         
+					result.getInt("idPage"));         
 			} catch (SQLException e){
 				e.printStackTrace(); 
 			}
@@ -43,12 +48,15 @@ public class PhotoDAO extends DAO<Photo>{
 	@Override
 	public boolean update(Photo obj) {
 		try {
-			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesPhotos SET parametresRetouche=?, idPage=?, idTir=?"
+			PreparedStatement prepare = this.connect.prepareStatement("UPDATE LesPhotos SET parametresRetouche=?, idPage=?"
         			+ "WHERE idPhoto=?");
         	prepare.setString(1, obj.getParametresRetouche());
         	prepare.setInt(2, obj.getIdPage());
-        	prepare.setInt(3, obj.getIdTir());
-        	prepare.setInt(4, obj.getIdPhoto());
+        	if (obj.getIdPage() < 0) {
+				prepare.setString(3, null);
+			} else {
+				prepare.setInt(3, obj.getIdPage());
+			}
         	int i = prepare.executeUpdate();
         	if(i == 1) {
         	    return true;
@@ -72,4 +80,5 @@ public class PhotoDAO extends DAO<Photo>{
 		}
 		return false;
 	}
+
 }

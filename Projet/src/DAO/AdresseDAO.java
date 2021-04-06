@@ -32,17 +32,18 @@ public class AdresseDAO extends DAO<Adresse>{
 	public Adresse read(int id){
 		Adresse adresse = new Adresse();      
 		try {
-			ResultSet result = this.connect.createStatement().
-			executeQuery("SELECT * FROM adresse WHERE idAdr = " + id);
-		if(result.first())
-			adresse = new Adresse(id,result.getInt("numRue"),
-								result.getString("nomRue"),
-								result.getString("ville"),
-								result.getInt("codePostal")
-								);         
-			} catch (SQLException e){
-				e.printStackTrace(); 
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE).
+			executeQuery("SELECT * FROM LesAdresses WHERE idAdr = " + id);
+			if(result.first()) {
+				adresse = new Adresse(id, result.getInt("numRue"),
+									result.getString("nomRue"),
+									result.getString("ville"),
+									result.getInt("codePostal")
+									);       
 			}
+		} catch (SQLException e){
+			e.printStackTrace(); 
+		}
 		return adresse;
 	}
 
@@ -70,7 +71,7 @@ public class AdresseDAO extends DAO<Adresse>{
 	public boolean delete(Adresse obj) {
 	    try {
 	    	Statement stmt = this.connect.createStatement();
-	        int i = stmt.executeUpdate("DELETE FROM user WHERE id=" + obj.getIdAdr());
+	        int i = stmt.executeUpdate("DELETE FROM LesAdresses WHERE id=" + obj.getIdAdr());
 	        if(i == 1) {
 	    	    return true;
 	        }

@@ -35,7 +35,8 @@ public class ArticleDAO extends DAO<Article>{
 	public Article read(int id){
 		Article article = new Article();      
 		try {
-			ResultSet result = this.connect.createStatement().
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                    ResultSet.CONCUR_UPDATABLE).
 			executeQuery("SELECT * FROM LesArticles WHERE idArticle = " + id);
 		if(result.first())
 			article = new Article(id, result.getDouble("prixImpression"), result.getInt("quantite"),result.getInt("idCommande"), result.getInt("idImpr"));         
